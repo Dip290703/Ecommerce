@@ -6,7 +6,7 @@ import CartTotal from "../components/CartTotal";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItem, products, currency ,updateQuantity} = useShop();
+  const { cartItem, products, currency, updateQuantity } = useShop();
   const [cartData, setCartData] = React.useState([]);
 
   useEffect(() => {
@@ -40,7 +40,6 @@ const Cart = () => {
             <div
               key={index}
               className="py-4 border-t border-b text-gray-700 grid grid-cols-[4fr_0.5fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4"
-
             >
               <div className="flex items-start gap-6">
                 <img
@@ -67,7 +66,15 @@ const Cart = () => {
                 type="number"
                 min={1}
                 defaultValue={item.quantity}
-                onChange={(e)=> e.target.value === "" || e.target.value === "0" ? null : updateQuantity(item._id, item.size, Number(e.target.value))}
+                onChange={(e) =>
+                  e.target.value === "" || e.target.value === "0"
+                    ? null
+                    : updateQuantity(
+                        item._id,
+                        item.size,
+                        Number(e.target.value)
+                      )
+                }
               />
               <img
                 src={assets.bin_icon}
@@ -83,9 +90,11 @@ const Cart = () => {
         <div className="w-full sm:w-[450px]">
           <CartTotal />
           <div className="w-full text-end">
-          <Link to="/placeorder">
-            <button className="bg-black text-white my-8 text-sm px-8 py-3">PROCEED TO CHECKOUT</button>
-          </Link>
+            <Link to="/placeorder">
+              <button className="bg-black text-white my-8 text-sm px-8 py-3">
+                PROCEED TO CHECKOUT
+              </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -6,12 +6,12 @@ import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
   const [showFilters, setShowFilters] = React.useState(false);
-  const { products, } = useShop();
+  const { products } = useShop();
   const [filteredProducts, setFilteredProducts] = React.useState([]);
   const [category, setCategory] = React.useState([]);
   const [subCategory, setSubCategory] = React.useState([]);
   const [sortType, setSortType] = React.useState("relavent");
-    const { serach, setSearch, showSearch, setShowSearch } = useShop();
+  const { serach, setSearch, showSearch, setShowSearch } = useShop();
 
   const toggleCategory = (e) => {
     const value = e.target.value;
@@ -32,7 +32,7 @@ const Collection = () => {
 
   const applyFilters = () => {
     let filtered = products.slice();
-    if(showSearch && serach){
+    if (showSearch && serach) {
       filtered = filtered.filter((product) =>
         product.name.toLowerCase().includes(serach.toLowerCase())
       );
@@ -67,10 +67,9 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [category, subCategory,serach,showSearch]);
+  }, [category, subCategory, serach, showSearch]);
 
   return (
-    
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-20 pt-10 border-t">
       <div className="min-w-60">
         <p

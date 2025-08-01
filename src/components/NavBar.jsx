@@ -4,11 +4,12 @@ import { Link, NavLink } from "react-router-dom";
 import { useShop } from "../context/ShopContext";
 const NavBar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const {
-    setShowSearch,getCartItemCount} = useShop()
+  const { setShowSearch, getCartItemCount } = useShop();
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <Link to='/'><img src={assets.logo} alt="logo" className="w-36" /></Link>
+      <Link to="/">
+        <img src={assets.logo} alt="logo" className="w-36" />
+      </Link>
 
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink to="/" className="flex gap-1 flex-col items-center">
@@ -71,12 +72,13 @@ const NavBar = () => {
           onClick={() => setShowSearch((prev) => !prev)}
         />
         <div className="group relative">
-          <Link to='./login'>
-          <img
-            src={assets.profile_icon}
-            alt=""
-            className="w-5 cursor-pointer"
-          /></Link>
+          <Link to="./login">
+            <img
+              src={assets.profile_icon}
+              alt=""
+              className="w-5 cursor-pointer"
+            />
+          </Link>
           <div className="group-hover:block hidden absolute right-0 pt-4 ">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded ">
               <p className="cursor-pointer hover:text-black ">My Profile</p>
@@ -88,29 +90,63 @@ const NavBar = () => {
         <Link to="/cart" className="relative">
           <img src={assets.cart_icon} alt="cart" className="w-6 min-w-6" />
           <div className="absolute bottom-[-5px] right-[-5px] bg-slate-500 text-white text-xs rounded-lg w-5 h-5 flex items-center justify-center">
-            {getCartItemCount()}   
+            {getCartItemCount()}
           </div>
         </Link>
         <img
-          onClick={()=>setIsOpen(true)}
+          onClick={() => setIsOpen(true)}
           src={assets.menu_icon}
           alt="menu"
           className="w-5 cursor-pointer sm:hidden"
         />
         {
-            <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${isOpen ? 'w-full' :'w-0'}`}>
-             <div className="flex flex-col text-gray-600">
-                <div className="flex items-center gap-5 p-3"
-                onClick={()=>setIsOpen(false)}>
-                    <img src={assets.dropdown_icon} alt="close" className="h-4 rotate-180" />
-                    <p>Back</p>
-                </div>
-                <NavLink to='/' className="py-2 pl-6 border" onClick={()=>setIsOpen(false)}>HOME</NavLink>
-                 <NavLink to='/collection' className="py-2 pl-6 border" onClick={()=>setIsOpen(false)}>COLLECTION</NavLink>
-                  <NavLink to='/about' className="py-2 pl-6 border" onClick={()=>setIsOpen(false)}>ABOUT</NavLink>
-                   <NavLink to='/contact' className="py-2 pl-6 border" onClick={()=>setIsOpen(false)}>CONTACT</NavLink>
-             </div>
+          <div
+            className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
+              isOpen ? "w-full" : "w-0"
+            }`}
+          >
+            <div className="flex flex-col text-gray-600">
+              <div
+                className="flex items-center gap-5 p-3"
+                onClick={() => setIsOpen(false)}
+              >
+                <img
+                  src={assets.dropdown_icon}
+                  alt="close"
+                  className="h-4 rotate-180"
+                />
+                <p>Back</p>
+              </div>
+              <NavLink
+                to="/"
+                className="py-2 pl-6 border"
+                onClick={() => setIsOpen(false)}
+              >
+                HOME
+              </NavLink>
+              <NavLink
+                to="/collection"
+                className="py-2 pl-6 border"
+                onClick={() => setIsOpen(false)}
+              >
+                COLLECTION
+              </NavLink>
+              <NavLink
+                to="/about"
+                className="py-2 pl-6 border"
+                onClick={() => setIsOpen(false)}
+              >
+                ABOUT
+              </NavLink>
+              <NavLink
+                to="/contact"
+                className="py-2 pl-6 border"
+                onClick={() => setIsOpen(false)}
+              >
+                CONTACT
+              </NavLink>
             </div>
+          </div>
         }
       </div>
     </div>

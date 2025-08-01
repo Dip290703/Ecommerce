@@ -5,12 +5,7 @@ import { assets } from "../assets/frontend_assets/assets";
 import RelatedProduct from "../components/RelatedProduct";
 const Product = () => {
   const { productId } = useParams();
-  const {
-    products,
-    currency,
-    cartItem,
-    addToCart,
-  } = useShop();
+  const { products, currency, cartItem, addToCart } = useShop();
   const [size, setSize] = React.useState("");
 
   const [productData, setProductData] = React.useState(false);
@@ -87,9 +82,10 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button 
-          onClick={()=> addToCart(productData._id, size)}
-          className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+          <button
+            onClick={() => addToCart(productData._id, size)}
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+          >
             ADD TO CART
           </button>
           <hr className="mt-8 sm:4/5" />

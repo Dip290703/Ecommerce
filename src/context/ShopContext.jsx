@@ -4,72 +4,70 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 // Corrected context name
- export const ShopContext = createContext();
+export const ShopContext = createContext();
 
 const ShopProvider = ({ children }) => {
   const currency = "$";
   const delivery_fee = 10;
-  const [serach ,setSearch] = useState("");
+  const [serach, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
-  const [cartItem,setCartItem] = useState({});
+  const [cartItem, setCartItem] = useState({});
   const navigate = useNavigate();
-  const addToCart = async (itemId,size) => {
-    if(!size){
+  const addToCart = async (itemId, size) => {
+    if (!size) {
       toast.error("Please select a size for the product");
-      return
+      return;
     }
     let cartData = structuredClone(cartItem);
-    if(cartData[itemId]){
-      if(cartData[itemId][size]){
+    if (cartData[itemId]) {
+      if (cartData[itemId][size]) {
         cartData[itemId][size] += 1;
-      }else{
+      } else {
         cartData[itemId][size] = 1;
       }
-    }
-    else{
+    } else {
       cartData[itemId] = {};
       cartData[itemId][size] = 1;
-    } 
+    }
     setCartItem(cartData);
-  }
- const getCartItemCount = () => {
-  let totoalCount = 0;
-  for (const item in cartItem) {
-    for (const size in cartItem[item]) {
-     try{
-      if (cartItem[item][size]) {
-        totoalCount += cartItem[item][size];
+  };
+  const getCartItemCount = () => {
+    let totoalCount = 0;
+    for (const item in cartItem) {
+      for (const size in cartItem[item]) {
+        try {
+          if (cartItem[item][size]) {
+            totoalCount += cartItem[item][size];
+          }
+        } catch (error) {
+          console.error("Error accessing cart item:", error);
+        }
       }
-     }catch (error) {
-       console.error("Error accessing cart item:", error);
-     }
     }
-  }
-  return totoalCount;
- }
- const updateQuantity = async (itemId, size, quantity) => {
-  let cartData = structuredClone(cartItem);
+    return totoalCount;
+  };
+  const updateQuantity = async (itemId, size, quantity) => {
+    let cartData = structuredClone(cartItem);
 
-  // Ensure item exists
-  if (!cartData[itemId]) return;
+    // Ensure item exists
+    if (!cartData[itemId]) return;
 
-  if (quantity === 0) {
-    // Remove specific size
-    delete cartData[itemId][size];
+    if (quantity === 0) {
+      // Remove specific size
+      delete cartData[itemId][size];
 
-    // If no sizes left, remove the item
-    if (Object.keys(cartData[itemId]).length === 0) {
-      delete cartData[itemId];
+      // If no sizes left, remove the item
+      if (Object.keys(cartData[itemId]).length === 0) {
+        delete cartData[itemId];
+      }
+    } else {
+      cartData[itemId][size] = quantity;
     }
-  } else {
-    cartData[itemId][size] = quantity;
-  }
 
-  setCartItem(cartData);
-  localStorage.setItem("cartItem", JSON.stringify(cartData));
-};
-console.log(cartItem);
-
+    setCartItem(cartData);
+    localStorage.setItem("cartItem", JSON.stringify(cartData));
+  };
+  console.log(cartItem);
 
   const getCartAmount = () => {
     let totalAmount = 0;
@@ -81,8 +79,8 @@ console.log(cartItem);
         }
       }
     }
-    return totalAmount 
-  }
+    return totalAmount;
+  };
 
   const value = {
     products,
@@ -94,23 +92,17 @@ console.log(cartItem);
     setShowSearch,
     cartItem,
     getCartItemCount,
-    addToCart,updateQuantity,getCartAmount,navigate
-
+    addToCart,
+    updateQuantity,
+    getCartAmount,
+    navigate,
   };
 
-  return (
-    <ShopContext.Provider value={value}>
-      {children}
-    </ShopContext.Provider>
-  );
+  return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };
 
-
-
 export const useShop = () => {
-    return useContext(ShopContext);
-}
+  return useContext(ShopContext);
+};
 
 export default ShopProvider;
-
-
